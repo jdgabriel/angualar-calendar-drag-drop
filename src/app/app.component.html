@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row" cdkDropListGroup>
     <div class="col-3 p-5">
-
+      <div class="button mb-2">
+        <button class="btn btn-primary w-100" (click)="visionMonth=
+          !visionMonth">
+          Mudar visão
+        </button>
+      </div>
       <div class="users"
         cdkDropList
         [cdkDropListData]="users"
@@ -19,7 +24,7 @@
       <pre>{{days|json}}</pre>
 
     </div>
-    <div class="col-9">
+    <div class="col-9" *ngIf="visionMonth">
       <div class="calendar">
 
         <div class="day-name" *ngFor="let day of daysWeek">
@@ -30,9 +35,6 @@
           <div class="day-number">
             <div class="day-n" [ngClass]="{'currentDay': day.isCurrentDay }">
               {{day.day}}
-            </div>
-            <div>
-              <!-- <button class="m-0 p-0 btn btn-primary" type="button">+</button> -->
             </div>
           </div>
 
@@ -55,6 +57,41 @@
           </div>
         </div>
 
+      </div>
+
+
+    </div>
+    <div class="col-9" *ngIf="!visionMonth">
+
+      <div class="all-days">
+        <div class="calendar-day">
+          <div class="day-week-horizontal" *ngFor="let day of days">
+            {{day.dayWeekName}}
+          </div>
+        </div>
+        <div class="calendar-day">
+
+          <div [style]="'grid-template-columns: repeat('+days.length+', 1fr);'"
+            class="day-horizontal" *ngFor="let day of days">
+            <div class="actions-day"
+              cdkDropList
+              [cdkDropListData]="day.actions"
+              [cdkDropListConnectedTo]="trackIds()"
+              [id]="day.id"
+              (cdkDropListDropped)="drop($event)">
+              <div cdkDrag
+                class="action-colab" *ngFor="let action of day.actions">
+                <div class="placeholder-action" *cdkDragPlaceholder>
+                  {{action.name}}
+                </div>
+                <p [ngStyle]="{'background-color': action.color}">
+                  {{action.name}}
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
 

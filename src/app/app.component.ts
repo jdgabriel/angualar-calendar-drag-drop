@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class AppComponent implements OnInit {
   days: any = [];
-
+  visionMonth: boolean = true;
   daysWeek: string[] = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
 
   users: any = [
@@ -90,6 +90,7 @@ export class AppComponent implements OnInit {
         this.days.push({
           id: `${Math.floor(Math.random() * 1000000)}`,
           day: moment(day).format('D').toString(),
+          dayWeekName: moment(day).locale('pt_BR').format('dddd').toString(),
           isCurrentDay,
           isMonth: moment().isBetween(
             moment(currentMonth).startOf('month'),
